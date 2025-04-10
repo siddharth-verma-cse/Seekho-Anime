@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import org.siddhartVerma.seekhoanime.R
+import dagger.hilt.android.AndroidEntryPoint
+
 import org.siddhartVerma.seekhoanime.databinding.FragmentAnimeDetailBinding
 import org.siddhartVerma.seekhoanime.viewModel.AnimeDetailViewModel
 
 
+@AndroidEntryPoint
 class AnimeDetailFragment : Fragment() {
 
 
@@ -25,6 +27,41 @@ class AnimeDetailFragment : Fragment() {
     ): View {
         _binding = FragmentAnimeDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val animeId = arguments?.let {
+            AnimeDetailFragmentArgs.fromBundle(it).animeId
+        } ?: return
+
+        viewModel.loadAnimeDetail(animeId)
+
+        viewModel.animeDetail.observe(viewLifecycleOwner) { anime ->
+            binding.apply {
+                tvTitle.text = anime.title
+                tvEpisodes.text = "Episodes: ${anime.episodes ?: "N/A"}"
+                tvScore.text = "Rating: ${anime.score ?: "N/A"}"
+                tvSynopsis.text = anime.synopsis ?: "No synopsis available"
+
+                Glide.with(this@AnimeDetailFragment)
+                    .load(anime.images.jpg.imageUrl)
+                    .into(ivPoster)
+
+                btnWatchTrailer.isVisible = !anime.trailer?.url.isNullOrBlank()
+                btnWatchTrailer.setOnClickListener {
+                    anime.trailer?.url?.let { url ->
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                    }
+                }
+            }
+        }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
