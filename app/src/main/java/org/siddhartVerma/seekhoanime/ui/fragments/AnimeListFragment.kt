@@ -42,9 +42,9 @@ class AnimeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         animeAdapter = AnimePagingAdapter { animeItem ->
-            findNavController().navigate(
-                    R.id.action_animeListFragment_to_animeDetailFragment
-            )
+            val action = AnimeListFragmentDirections
+                .actionAnimeListFragmentToAnimeDetailFragment(animeItem.malId!!)
+            findNavController().navigate(action)
         }
 
         binding.recyclerView.adapter = animeAdapter.withLoadStateHeaderAndFooter(

@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.siddhartVerma.seekhoanime.databinding.FragmentAnimeDetailBinding
 import org.siddhartVerma.seekhoanime.viewModel.AnimeDetailViewModel
 import androidx.core.net.toUri
+import org.siddhartVerma.seekhoanime.R
 
 
 @AndroidEntryPoint
@@ -40,20 +41,30 @@ class AnimeDetailFragment : Fragment() {
 
         viewModel.loadAnimeDetail(animeId)
 
+
+
         viewModel.animeDetail.observe(viewLifecycleOwner) { anime ->
             binding.apply {
-                tvTitle.text = anime.title
-                tvEpisodes.text = "Episodes: ${anime.episodes ?: "N/A"}"
-                tvScore.text = "Rating: ${anime.score ?: "N/A"}"
-                tvSynopsis.text = anime.synopsis ?: "No synopsis available"
+                tvTitle.text = anime?.title
+                tvEpisodes.text = "Episodes: ${anime?.episodes ?: "N/A"}"
+                tvScore.text = "Rating: ${anime?.score ?: "N/A"}"
+                tvSynopsis.text = anime?.synopsis ?: "No synopsis available"
+                val imageUrl = anime?.images?.jpg?.image_url
 
-                Glide.with(this@AnimeDetailFragment)
-                    .load(anime.images.jpg.imageUrl)
-                    .into(ivPoster)
+                if (imageUrl != null) {
+                    Glide.with(binding.ivPoster)
+                        .load(imageUrl)
+                        .into(binding.ivPoster)
+                } else {
+                    // Load placeholder or log it
+                    Glide.with(binding.ivPoster)
+                        .load(R.drawable.baseline_broken_image_24) // <- your fallback
+                        .into(binding.ivPoster)
+                }
 
-                btnWatchTrailer.isVisible = !anime.trailer?.url.isNullOrBlank()
+                btnWatchTrailer.isVisible = !anime?.trailer?.url.isNullOrBlank()
                 btnWatchTrailer.setOnClickListener {
-                    anime.trailer?.url?.let { url ->
+                    anime?.trailer?.url?.let { url ->
                         val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                         startActivity(intent)
                     }

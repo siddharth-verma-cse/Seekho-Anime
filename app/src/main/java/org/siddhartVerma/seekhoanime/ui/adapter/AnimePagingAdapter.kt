@@ -39,7 +39,7 @@ class AnimePagingAdapter(
                 tvScore.text = "Rating: ${animeItem.score ?: "N/A"}"
 
                 Glide.with(ivPoster.context)
-                    .load(animeItem.images.jpg.imageUrl)
+                    .load(animeItem.images?.jpg?.image_url)
                     .placeholder(R.drawable.baseline_broken_image_24)
                     .into(ivPoster)
 

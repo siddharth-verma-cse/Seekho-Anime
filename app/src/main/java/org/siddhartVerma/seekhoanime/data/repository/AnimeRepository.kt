@@ -1,6 +1,7 @@
 package org.siddhartVerma.seekhoanime.data.repository
 
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import org.siddhartVerma.seekhoanime.data.api.ApiService
@@ -20,8 +21,8 @@ class AnimeRepository @Inject constructor(
         )
     }
 
-    suspend fun getAnimeDetails(id: Int): AnimeItem {
-
-        return apiService.getAnimeDetails(id)
+    suspend fun getAnimeDetails(id: Int): AnimeItem? {
+        Log.d("TAG", "getAnimeDetailsID:  $id" )
+        return apiService.getAnimeDetails(id).data
     }
 }
