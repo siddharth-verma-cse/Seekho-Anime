@@ -1,6 +1,6 @@
 package org.siddhartVerma.seekhoanime.ui.adapter
 
-import AnimeItem
+
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.siddhartVerma.seekhoanime.R
+import org.siddhartVerma.seekhoanime.data.model.AnimeItem
 import org.siddhartVerma.seekhoanime.databinding.AnimeItemBinding
 
 class AnimePagingAdapter(

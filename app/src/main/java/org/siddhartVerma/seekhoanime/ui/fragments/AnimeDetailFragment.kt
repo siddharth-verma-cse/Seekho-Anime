@@ -1,21 +1,24 @@
 package org.siddhartVerma.seekhoanime.ui.fragments
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 import org.siddhartVerma.seekhoanime.databinding.FragmentAnimeDetailBinding
 import org.siddhartVerma.seekhoanime.viewModel.AnimeDetailViewModel
+import androidx.core.net.toUri
 
 
 @AndroidEntryPoint
 class AnimeDetailFragment : Fragment() {
-
-
     private var _binding: FragmentAnimeDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -29,6 +32,7 @@ class AnimeDetailFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val animeId = arguments?.let {
             AnimeDetailFragmentArgs.fromBundle(it).animeId
@@ -50,7 +54,7 @@ class AnimeDetailFragment : Fragment() {
                 btnWatchTrailer.isVisible = !anime.trailer?.url.isNullOrBlank()
                 btnWatchTrailer.setOnClickListener {
                     anime.trailer?.url?.let { url ->
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                         startActivity(intent)
                     }
                 }

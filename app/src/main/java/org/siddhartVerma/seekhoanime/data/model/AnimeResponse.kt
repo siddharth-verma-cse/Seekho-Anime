@@ -1,4 +1,5 @@
 import com.google.gson.annotations.SerializedName
+import org.siddhartVerma.seekhoanime.data.model.AnimeItem
 
 data class AnimeListResponse(
     @SerializedName("data") val animeList: List<AnimeItem>,
@@ -6,23 +7,7 @@ data class AnimeListResponse(
     @SerializedName("pagination") val pagination: Pagination
 )
 
-data class AnimeItem(
-    @SerializedName("mal_id") val malId: Int,
 
-    @SerializedName("title") val title: String,
-
-    @SerializedName("episodes") val episodes: Int?,
-
-    @SerializedName("score") val score: Double?,
-
-    @SerializedName("synopsis") val synopsis: String?,
-
-    @SerializedName("genres") val genres: List<Genre>,
-
-    @SerializedName("trailer") val trailer: Trailer?,
-
-    @SerializedName("images") val images: Images
-)
 
 data class Genre(
     @SerializedName("name") val name: String

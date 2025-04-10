@@ -1,9 +1,9 @@
 package org.siddhartVerma.seekhoanime.data.pagingsource
 
-import AnimeItem
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import org.siddhartVerma.seekhoanime.data.api.ApiService
+import org.siddhartVerma.seekhoanime.data.model.AnimeItem
 
 class AnimePagingSource(
     private val apiService: ApiService

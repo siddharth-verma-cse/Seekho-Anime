@@ -1,9 +1,10 @@
 package org.siddhartVerma.seekhoanime.data.repository
 
-import AnimeItem
+
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import org.siddhartVerma.seekhoanime.data.api.ApiService
+import org.siddhartVerma.seekhoanime.data.model.AnimeItem
 import org.siddhartVerma.seekhoanime.data.pagingsource.AnimePagingSource
 import javax.inject.Inject
 import javax.inject.Singleton

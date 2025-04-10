@@ -1,8 +1,9 @@
 package org.siddhartVerma.seekhoanime.data.api
 
 
-import AnimeItem
+
 import AnimeListResponse
+import org.siddhartVerma.seekhoanime.data.model.AnimeItem
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
